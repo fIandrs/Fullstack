@@ -1,5 +1,6 @@
 # Operation NetNabber
 Fullstack Academy - Cybersecurity - Cohort 2208-fcb-et-cyb-pt
+
 Team Members: Drago Bonacich and Troy Schmitz
 
 NOTE: THIS DEMONSTRATION IS INTENDED FOR EDUCATIONAL PURPOSES ONLY. WE DO NOT CONDONE THE USE OF HACKING TOOLS FOR ILLEGAL PURPOSES.
